@@ -1,0 +1,25 @@
+{
+  "name": "sagesa_zap",
+  "version": "1.0.1",
+  "description": "zappp that takes data from sage za api",
+  "homepage": "https://zapier.com/",
+  "author": "kshitij",
+  "license": "UNLICENSED",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest --testTimeout 10000"
+  },
+  "engines": {
+    "node": ">=10",
+    "npm": ">=5.6.0"
+  },
+  "dependencies": {
+    "zapier-platform-core": "12.0.3"
+  },
+  "devDependencies": {
+    "jest": "^25.5.3",
+    "mocha": "^5.2.0",
+    "should": "^13.2.0"
+  },
+  "private": true
+}
