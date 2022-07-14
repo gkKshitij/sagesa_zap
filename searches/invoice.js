@@ -20,12 +20,12 @@ module.exports = {
         label: "companyid",
         helpText: "company id = 528617",
       },
-      {
-        key: "ID",
-        type: "string",
-        label: "Invoice ID",
-        helpText: "invoice ID=1497709240",
-      },
+      //   {
+      //     key: "ID",
+      //     type: "string",
+      //     label: "Invoice ID",
+      //     helpText: "invoice ID=1497709240",
+      //   },
     ],
 
     perform: (z, bundle) => {
@@ -45,14 +45,17 @@ module.exports = {
         },
       };
 
-      return [
-        z.request(url, options).then((response) => response.data.Results),
-      ];
+      return z.request(url, options).then((response) => response.data.Results);
+      //////////////////////////////////////
       //   return z
       //     .request(url, options)
 
       //     .then((response) => {
-      //       //   console.log(response.data.Results);
+      //       console.log("response.data.Results");
+      //       console.log(response.data.Results);
+
+      //       //   console.log("single element");
+      //       //   console.log(response.data.Results[0]);
 
       //       response.data.Results;
       //     });

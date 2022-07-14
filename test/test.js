@@ -73,9 +73,15 @@ describe("searches", () => {
         .then((results) => {
           results.length.should.be.aboveOrEqual(1);
 
-          const firstInvoice = results.data.Results[0];
-          console.log(firstInvoice);
-          firstInvoice.companyid.should.eql("528617");
+          // console.log(results);
+
+          // const firstInvoice = results[0];
+          // console.log("in test");
+          // console.log(firstInvoice);
+
+          firstInvoice.TaxReference.should.eql("999999999");
+
+          // firstInvoice.companyid.should.eql("528617");
           // firstInvoice.ID.should.eql("1497709240");
           // should.exist(firstInvoice.CustomerId); // 39118490
           // should.exist(firstInvoice.description); //apple
