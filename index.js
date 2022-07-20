@@ -11,6 +11,7 @@ const addAuthHeader = (request, z, bundle) => {
 };
 
 const search = require("./searches/invoice");
+const searchs = require("./searches/invoices");
 
 const App = {
   // This is just shorthand to reference the installed dependencies you have.
@@ -30,6 +31,7 @@ const App = {
   // If you want your searches to show up, you better include it here!
   searches: {
     [search.key]: search, // same as invoice that is search=invoice
+    [searchs.key]: searchs,
   },
 
   // If you want your creates to show up, you better include it here!
