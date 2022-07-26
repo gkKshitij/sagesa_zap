@@ -26,19 +26,18 @@ module.exports = {
         label: "apiKey",
         helpText: "{ACD2957E-7585-4607-833E-999E846741A6}",
       },
+      {
+        key: "ID",
+        type: "string",
+        label: "Invoice ID",
+        helpText: "invoice ID=1497289436",
+      },
       // {
       //   key: "&%24orderby=DueDate%20desc",
       //   type: "string",
       //   label: "apiKey",
       //   helpText: "{ACD2957E-7585-4607-833E-999E846741A6}",
       // },
-
-      //   {
-      //     key: "ID",
-      //     type: "string",
-      //     label: "Invoice ID",
-      //     helpText: "invoice ID=1497709240",
-      //   },
     ],
 
     perform: (z, bundle) => {

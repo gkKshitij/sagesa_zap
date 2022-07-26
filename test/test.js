@@ -109,15 +109,16 @@ describe("searches multiple return", () => {
 
       appTester(App.searches.invoices.operation.perform, bundle)
         .then((results) => {
-          results.length.should.be.aboveOrEqual(9);
+          results.length.should.be.aboveOrEqual(1);
 
           // console.log(results);
 
-          // const firstInvoice = results[0];
+          const array = results[0];
           // console.log("in test");
-          // console.log(firstInvoice);
+          // console.log(array);
+          // console.log(array.TotalResults);
 
-          // firstInvoice.TaxReference.should.eql("999999999");
+          array.TotalResults.should.eql(10);
 
           // firstInvoice.companyid.should.eql("528617");
           // firstInvoice.ID.should.eql("1497709240");

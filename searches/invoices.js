@@ -26,12 +26,6 @@ module.exports = {
         label: "apiKey",
         helpText: "{ACD2957E-7585-4607-833E-999E846741A6}",
       },
-      //   {
-      //     key: "ID",
-      //     type: "string",
-      //     label: "Invoices ID",
-      //     helpText: "invoices ID=1497709240",
-      //   },
     ],
 
     perform: (z, bundle) => {
@@ -56,30 +50,16 @@ module.exports = {
 
       return z.request(url, options).then((response) => {
         response.throwForStatus();
-        const results = response.json;
+        const results = [response.json];
         // console.log("invoices results");
         // console.log(results);
         // z.console.log("invoice results");
         // z.console.log(results.Results.length);
         // z.console.log(results);
 
-        const maxlenofloops = results.TotalResults;
-        // console.log("maxlenofloops", maxlenofloops);
-        let counter = 1;
-        const downloads = results.Results.map((item, counter) => {
-          counter = counter++;
-          // maxlenofloops = maxlenofloops;
-
-          return Object.assign(item, {
-            counter,
-            maxlenofloops,
-            // _id: item.id, // Real item id
-          });
-        });
-
         // console.log(downloads);
         // console.log("downloads");
-        return downloads;
+        return results;
       });
       //////////////////////////////////////
       //   return z
