@@ -1,6 +1,6 @@
 {
   "name": "sagesa_zap",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "zappp that takes data from sage za api",
   "homepage": "https://zapier.com/",
   "author": "kshitij",

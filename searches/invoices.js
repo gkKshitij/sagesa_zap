@@ -20,6 +20,12 @@ module.exports = {
         label: "companyid",
         helpText: "company id = 528617",
       },
+      {
+        key: "apiKey",
+        type: "string",
+        label: "apiKey",
+        helpText: "{ACD2957E-7585-4607-833E-999E846741A6}",
+      },
       //   {
       //     key: "ID",
       //     type: "string",
@@ -29,8 +35,7 @@ module.exports = {
     ],
 
     perform: (z, bundle) => {
-      const url =
-        "https://accounting.sageone.co.za/api/2.0.0/TaxInvoice/Get?apiKey={ACD2957E-7585-4607-833E-999E846741A6}";
+      const url = "https://accounting.sageone.co.za/api/2.0.0/TaxInvoice/Get";
 
       // Put the search value in a query param. The details of how to build
       // a search URL will depend on how your API works.
@@ -39,6 +44,10 @@ module.exports = {
           //   style: bundle.inputData.style,
           //   ID: bundle.inputData.id,
           companyid: bundle.inputData.companyid,
+          apiKey: bundle.inputData.apiKey,
+
+          // $filter: "Counter eq '".concat(bundle.inputData.counter, "'"),
+          // $filter: `$"Counter eq "\'bundle.inputData.counter\'`,
           // below 2 are rather useless
           //   includeDetails: true,
           //   includeCustomerDetails: true,

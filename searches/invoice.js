@@ -20,6 +20,19 @@ module.exports = {
         label: "companyid",
         helpText: "company id = 528617",
       },
+      {
+        key: "apiKey",
+        type: "string",
+        label: "apiKey",
+        helpText: "{ACD2957E-7585-4607-833E-999E846741A6}",
+      },
+      // {
+      //   key: "&%24orderby=DueDate%20desc",
+      //   type: "string",
+      //   label: "apiKey",
+      //   helpText: "{ACD2957E-7585-4607-833E-999E846741A6}",
+      // },
+
       //   {
       //     key: "ID",
       //     type: "string",
@@ -29,8 +42,7 @@ module.exports = {
     ],
 
     perform: (z, bundle) => {
-      const url =
-        "https://accounting.sageone.co.za/api/2.0.0/TaxInvoice/Get?apiKey={ACD2957E-7585-4607-833E-999E846741A6}";
+      const url = "https://accounting.sageone.co.za/api/2.0.0/TaxInvoice/Get";
 
       // Put the search value in a query param. The details of how to build
       // a search URL will depend on how your API works.
@@ -39,26 +51,45 @@ module.exports = {
           //   style: bundle.inputData.style,
           //   ID: bundle.inputData.id,
           companyid: bundle.inputData.companyid,
+          apiKey: bundle.inputData.apiKey,
+
+          // $filter: "Counter eq '".concat(bundle.inputData.counter, "'"),
+
           // below 2 are rather useless
           //   includeDetails: true,
           //   includeCustomerDetails: true,
         },
       };
 
-      return z.request(url, options).then((response) => response.data.Results);
+      // return z.request(url, options).then((response) => response.data.Results);
       //////////////////////////////////////
-      //   return z
-      //     .request(url, options)
+      return z.request(url, options).then((response) => {
+        response.throwForStatus();
+        const results = response.json;
+        // console.log("invoices results");
+        // console.log(results);
+        // z.console.log("invoice results");
+        // z.console.log(results.Results.length);
+        // z.console.log(results);
 
-      //     .then((response) => {
-      //       console.log("response.data.Results");
-      //       console.log(response.data.Results);
+        const maxlenofloops = results.TotalResults;
+        // console.log("maxlenofloops", maxlenofloops);
+        let counter = 1;
+        const downloads = results.Results.map((item, counter) => {
+          counter = counter++;
+          // maxlenofloops = maxlenofloops;
 
-      //       //   console.log("single element");
-      //       //   console.log(response.data.Results[0]);
+          return Object.assign(item, {
+            counter,
+            maxlenofloops,
+            // _id: item.id, // Real item id
+          });
+        });
 
-      //       response.data.Results;
-      //     });
+        // console.log(downloads);
+        // console.log("downloads");
+        return downloads;
+      });
     },
 
     // In cases where Zapier needs to show an example record to the user, but we are unable to get a live example

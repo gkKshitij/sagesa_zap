@@ -6,14 +6,8 @@ const App = require("../index");
 const appTester = zapier.createAppTester(App);
 const should = require("should"); // required to use .exist()
 ////////////////////////////////////////////
-/* globals describe, it */
 
-// const zapier = require("zapier-platform-core");
-
-// const App = require("../index");
-// const appTester = zapier.createAppTester(App);
-//////////////////////////////////////////////
-
+// testing authentication true credentials
 describe("basic auth", () => {
   it("automatically has Authorize Header add", async () => {
     const bundle = {
@@ -32,6 +26,7 @@ describe("basic auth", () => {
   });
 
   ////////////////////////////////////////////
+  // testing authentication false credentials
   it("fails on bad auth", async () => {
     const bundle = {
       authData: {
@@ -54,6 +49,7 @@ describe("basic auth", () => {
 });
 
 ///////////////////////////////////////////////////
+// testing to get a invoice related to the user details and API
 describe("searches", () => {
   describe("search invoice", () => {
     it("should find a invoice", (done) => {
@@ -63,8 +59,8 @@ describe("searches", () => {
           password: "Rohit@123",
         },
         inputData: {
-          //   style: "style 2",
           companyid: 528617,
+          apiKey: "{ACD2957E-7585-4607-833E-999E846741A6}",
           // ID: 1497709240,
         },
       };
@@ -95,6 +91,7 @@ describe("searches", () => {
 
 ///////////////////////////////////////////
 ///////////////////////////////////////////////////
+// trying to return multiple invoices
 describe("searches multiple return", () => {
   describe("search invoices", () => {
     it("should find invoices", (done) => {
@@ -104,8 +101,8 @@ describe("searches multiple return", () => {
           password: "Rohit@123",
         },
         inputData: {
-          //   style: "style 2",
           companyid: 528617,
+          apiKey: "{ACD2957E-7585-4607-833E-999E846741A6}",
           // ID: 1497709240,
         },
       };
@@ -116,7 +113,7 @@ describe("searches multiple return", () => {
 
           // console.log(results);
 
-          const firstInvoice = results[0];
+          // const firstInvoice = results[0];
           // console.log("in test");
           // console.log(firstInvoice);
 
