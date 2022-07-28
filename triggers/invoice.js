@@ -1,3 +1,54 @@
+const listInvoice = async (z, bundle) => {
+  // `z.console.log()` is similar to `console.log()`.
+  z.console.log("console says hello world!");
+
+  const params = {
+    companyid: bundle.inputData.companyid,
+    apiKey: bundle.inputData.apiKey,
+    // id: bundle.inputData.id,
+  };
+  //   if (bundle.inputData.style) {
+  //     //// TODO: use this method for single invoice maybe
+  //     params.style = bundle.inputData.style;
+  //   }
+
+  // You can build requests and our client will helpfully inject all the variables
+  // you need to complete. You can also register middleware to control this.
+  const requestOptions = {
+    url: "https://accounting.sageone.co.za/api/2.0.0/TaxInvoice/Get",
+    params: params,
+  };
+
+  ///////////////////////////
+  // z.request() returns an HTTP Response Object https://github.com/zapier/zapier-platform/tree/master/packages/cli#http-response-object
+  const response = await z.request(requestOptions);
+
+  //   return response.data;
+  ///////////////////////////////
+
+  return z.request(requestOptions).then((response) => {
+    response.throwForStatus();
+    const results = response.Results;
+    console.log("results");
+    console.log(results);
+
+    // // if id is missing in json but sage maybe has one
+    // const downloads = results.map((item) => {
+    //   const id = item._id;
+    //   return Object.assign(item, {
+    //     id,
+    //     // _id: item.id, // Real item id
+    //   });
+    // });
+
+    // console.log(downloads);
+    // console.log("downloads");
+    return results;
+  });
+};
+
+// We recommend writing your triggers separate like this and rolling them
+// into the App definition at the end.
 module.exports = {
   key: "invoice",
 
@@ -5,14 +56,21 @@ module.exports = {
   // for users. Zapier will put them into the UX.
   noun: "Invoice",
   display: {
-    label: "Find a Invoice",
-    description: "Search for invoice by ID.",
+    label: "New Invoice",
+    description: "Triggers when a new invoice is added.",
   },
 
-  // `operation` is where we make the call to your API to do the search
+  // `operation` is where the business logic goes.
   operation: {
-    // This search only has one search field. Your searches might have just one, or many
-    // search fields.
+    // `inputFields` can define the fields a user could provide,
+    // we'll pass them in as `bundle.inputData` later.
+    // inputFields: [
+    //   {
+    //     key: "style",
+    //     type: "string",
+    //     helpText: "Which styles of cuisine this should trigger on.",
+    //   },
+    // ],
     inputFields: [
       {
         key: "companyid",
@@ -26,12 +84,12 @@ module.exports = {
         label: "apiKey",
         helpText: "{ACD2957E-7585-4607-833E-999E846741A6}",
       },
-      {
-        key: "ID",
-        type: "string",
-        label: "Invoice ID",
-        helpText: "invoice ID=1497289436",
-      },
+      // {
+      //   key: "id",
+      //   type: "string",
+      //   label: "Invoice ID",
+      //   helpText: "invoice ID=1497289436",
+      // },
       // {
       //   key: "&%24orderby=DueDate%20desc",
       //   type: "string",
@@ -40,58 +98,7 @@ module.exports = {
       // },
     ],
 
-    perform: (z, bundle) => {
-      const url = "https://accounting.sageone.co.za/api/2.0.0/TaxInvoice/Get";
-
-      // Put the search value in a query param. The details of how to build
-      // a search URL will depend on how your API works.
-      const options = {
-        params: {
-          //   style: bundle.inputData.style,
-          //   ID: bundle.inputData.id,
-          companyid: bundle.inputData.companyid,
-          apiKey: bundle.inputData.apiKey,
-          id: bundle.inputData.id,
-
-          // $filter: "Counter eq '".concat(bundle.inputData.counter, "'"),
-
-          // below 2 are rather useless
-          //   includeDetails: true,
-          //   includeCustomerDetails: true,
-        },
-      };
-
-      // return z.request(url, options).then((response) => response.data.Results);
-      //////////////////////////////////////
-      return z.request(url, options).then((response) => {
-        response.throwForStatus();
-        const results = [response.json];
-        // console.log("invoices results");
-        // console.log(results);
-        // z.console.log("invoice results");
-        // z.console.log(results.Results.length);
-        // z.console.log(results);
-
-        // const maxlenofloops = results.TotalResults;
-        // // console.log("maxlenofloops", maxlenofloops);
-        // let counter = 1;
-        // const downloads = results.Results.map((item, counter) => {
-        //   counter = counter++;
-        //   // maxlenofloops = maxlenofloops;
-
-        //   return Object.assign(item, {
-        //     counter,
-        //     maxlenofloops,
-        //     // _id: item.id, // Real item id
-        //   });
-        // });
-
-        // // console.log(downloads);
-        // // console.log("downloads");
-        // return downloads;
-        return results;
-      });
-    },
+    perform: listInvoice,
 
     // In cases where Zapier needs to show an example record to the user, but we are unable to get a live example
     // from the API, Zapier will fallback to this hard-coded sample. It should reflect the data structure of
@@ -163,9 +170,12 @@ module.exports = {
 
     // If the resource can have fields that are custom on a per-user basis, define a function to fetch the custom
     // field definitions. The result will be used to augment the sample.
-    // outputFields: () => { return []; }
+    //   outputFields: [
+    //    () => { return []; }
+    //   ]
+    // For a more complete example of using dynamic fields see
+    // https://github.com/zapier/zapier-platform/tree/master/packages/cli#customdynamic-fields.
     // Alternatively, a static field definition should be provided, to specify labels for the fields
-    /////////////////////////////////
     // outputFields: [
     //   { key: "id", label: "ID" },
     //   { key: "createdAt", label: "Created At" },

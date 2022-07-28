@@ -61,7 +61,7 @@ describe("searches", () => {
         inputData: {
           companyid: 528617,
           apiKey: "{ACD2957E-7585-4607-833E-999E846741A6}",
-          // ID: 1497709240,
+          id: 1497709240,
         },
       };
 
@@ -71,14 +71,14 @@ describe("searches", () => {
 
           // console.log(results);
 
-          // const firstInvoice = results[0];
-          // console.log("in test");
-          // console.log(firstInvoice);
+          const invoice = results[0];
+          console.log("in test");
+          console.log(invoice);
 
           // firstInvoice.TaxReference.should.eql("999999999");
 
           // firstInvoice.companyid.should.eql("528617");
-          // firstInvoice.ID.should.eql("1497709240");
+          invoice.ID.should.eql(1497709240);
           // should.exist(firstInvoice.CustomerId); // 39118490
           // should.exist(firstInvoice.description); //apple
 
@@ -133,3 +133,59 @@ describe("searches multiple return", () => {
 });
 
 ///////////////////////////////////////////
+
+// trigger when a new invoice is created
+describe("triggers", () => {
+  describe("new invoice trigger", () => {
+    it("should load invoices", async () => {
+      const bundle = {
+        authData: {
+          username: "rohitkhairnar@winjit.com",
+          password: "Rohit@123",
+        },
+        inputData: {
+          companyid: 528617,
+          apiKey: "{ACD2957E-7585-4607-833E-999E846741A6}",
+          // ID: 1497709240,
+        },
+      };
+
+      const results = await appTester(
+        App.triggers.invoice.operation.perform,
+        bundle
+      );
+
+      results.length.should.above(0);
+
+      // const firstInvoice = results[0];
+      // console.log(firstInvoice);
+      // firstInvoice.name.should.eql("name 2");
+      // firstInvoice.directions.should.eql("directions 2");
+    });
+
+    it("should load invoices without filters", async () => {
+      const bundle = {
+        authData: {
+          username: "rohitkhairnar@winjit.com",
+          password: "Rohit@123",
+        },
+        inputData: {
+          companyid: 528617,
+          apiKey: "{ACD2957E-7585-4607-833E-999E846741A6}",
+          // ID: 1497709240,
+        },
+      };
+
+      const results = await appTester(
+        App.triggers.invoice.operation.perform,
+        bundle
+      ).then((results) => {
+        results.length.should.above(0);
+
+        // const firstInvoice = results[0];
+        // firstInvoice.name.should.eql("name 1");
+        // firstInvoice.directions.should.eql("directions 1");
+      });
+    });
+  });
+});

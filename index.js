@@ -12,6 +12,7 @@ const addAuthHeader = (request, z, bundle) => {
 
 const search = require("./searches/invoice");
 const searchs = require("./searches/invoices");
+const trigger = require("./triggers/invoice");
 
 const App = {
   // This is just shorthand to reference the installed dependencies you have.
@@ -26,7 +27,9 @@ const App = {
   afterResponse: [...afters],
 
   // If you want your trigger to show up, you better include it here!
-  triggers: {},
+  triggers: {
+    [trigger.key]: trigger,
+  },
 
   // If you want your searches to show up, you better include it here!
   searches: {
