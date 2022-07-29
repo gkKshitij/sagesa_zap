@@ -21,29 +21,29 @@ const listInvoice = async (z, bundle) => {
 
   ///////////////////////////
   // z.request() returns an HTTP Response Object https://github.com/zapier/zapier-platform/tree/master/packages/cli#http-response-object
-  const response = await z.request(requestOptions);
+  // const response = await z.request(requestOptions);
 
   //   return response.data;
   ///////////////////////////////
 
   return z.request(requestOptions).then((response) => {
     response.throwForStatus();
-    const results = response.Results;
-    console.log("results");
-    console.log(results);
+    const results = response.json.Results;
+    // z.console.log("response");
+    // z.console.log(response);
 
     // // if id is missing in json but sage maybe has one
-    // const downloads = results.map((item) => {
-    //   const id = item._id;
-    //   return Object.assign(item, {
-    //     id,
-    //     // _id: item.id, // Real item id
-    //   });
-    // });
+    const downloads = results.map((item) => {
+      const id = item.ID;
+      return Object.assign(item, {
+        id,
+        // _id: item.id, // Real item id
+      });
+    });
 
     // console.log(downloads);
     // console.log("downloads");
-    return results;
+    return downloads;
   });
 };
 
