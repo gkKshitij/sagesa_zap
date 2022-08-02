@@ -1,6 +1,6 @@
 const listInvoice = async (z, bundle) => {
   // `z.console.log()` is similar to `console.log()`.
-  z.console.log("console says hello world!");
+  // z.console.log("console says hello world!");
 
   const params = {
     companyid: bundle.inputData.companyid,

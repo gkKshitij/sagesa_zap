@@ -13,7 +13,7 @@ const addAuthHeader = (request, z, bundle) => {
 const search = require("./searches/invoice");
 const searchs = require("./searches/invoices");
 const trigger = require("./triggers/invoice");
-const create = require("./creates/invoices");
+// const create = require("./creates/invoices"); // DLC on hold
 
 const App = {
   // This is just shorthand to reference the installed dependencies you have.
@@ -40,7 +40,7 @@ const App = {
 
   // If you want your creates to show up, you better include it here!
   creates: {
-    [create.key]: create,
+    // [create.key]: create,
   },
 
   resources: {},

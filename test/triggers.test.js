@@ -28,10 +28,10 @@ describe("triggers", () => {
         .then((results) => {
           results.length.should.above(0);
 
-          const invoice = results[0];
+          // const invoice = results[0];
 
-          console.log("in test");
-          console.log(invoice);
+          // console.log("in test");
+          // console.log(invoice);
 
           // const firstInvoice = results[0];
           // console.log(firstInvoice);
